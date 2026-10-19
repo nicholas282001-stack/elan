@@ -29,7 +29,8 @@ function softwareGL() {
   } catch { return false; }
 }
 const conn = navigator.connection || {};
-const lowPower = (navigator.deviceMemory && navigator.deviceMemory <= 3) || (mobile && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || conn.saveData;
+// Safari su iPhone dichiara pochi processori per privacy: non è un indice affidabile, quindi non lo usiamo.
+const lowPower = (navigator.deviceMemory && navigator.deviceMemory <= 2) || conn.saveData;
 let mode = '3d';
 if (!hasWebGL()) mode = 'lite';
 else if (params.has('lite') || reduced || lowPower || softwareGL()) mode = 'lite';
