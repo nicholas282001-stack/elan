@@ -188,12 +188,15 @@ async function load3D() {
     mode = 'lite'; document.documentElement.dataset.mode = 'lite'; loader.hidden = true; setupLite(); onScroll();
   }
 }
-// Il 3D si carica solo al primo gesto dell'utente: la pagina resta leggera e veloce.
-// Intanto il racconto usa le immagini già pronte, quindi l'effetto parte subito.
+// Il 3D si prepara subito dopo la pagina (quando il browser è libero) o al primo gesto,
+// così è già pronto quando inizia la demolizione. Fino ad allora si vedono le immagini.
 function scheduleLoad() {
   const evs = ['pointerdown', 'wheel', 'touchstart', 'keydown', 'scroll'];
   const go = () => { evs.forEach((e) => window.removeEventListener(e, go)); load3D(); };
   evs.forEach((e) => window.addEventListener(e, go, { passive: true }));
+  const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300));
+  const start = () => idle(go, { timeout: 1500 });
+  if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
 }
 
 // ---------------- strumenti ----------------
