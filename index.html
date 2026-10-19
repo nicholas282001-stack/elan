@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>El.An. Costruzioni Residenziali · Nuove case nel Cilento</title>
+  <meta name="description" content="El.An. trasforma edifici inutilizzati in nuove residenze nel Cilento. Da oltre vent'anni ad Agropoli: scopri i progetti di Via Calcedonio Giordano, Via Risorgimento e Villette Moio Alto.">
+  <meta name="theme-color" content="#121311">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="img/elan-marchio.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:title" content="El.An. · Diamo nuova vita ai luoghi">
+  <meta property="og:description" content="Nuove residenze nel Cilento, costruite da chi lavora qui da oltre vent'anni.">
+  <meta property="og:image" content="frames/f12-d.webp">
+  <link rel="preload" as="image" href="frames/f12-d.webp" media="(min-width: 761px)" fetchpriority="high">
+  <link rel="preload" as="image" href="frames/f12-m.webp" media="(max-width: 760px)" fetchpriority="high">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "GeneralContractor",
+    "name": "El.An. S.r.l.",
+    "alternateName": "El.An. Costruzioni Residenziali",
+    "description": "Sviluppo residenziale nel Cilento: demolizione e ricostruzione di edifici inutilizzati per realizzare nuove abitazioni.",
+    "logo": "img/elan-logo.svg",
+    "image": "frames/f12-d.webp",
+    "address": { "@type": "PostalAddress", "addressLocality": "Agropoli", "addressRegion": "SA", "addressCountry": "IT" },
+    "areaServed": { "@type": "Place", "name": "Cilento" },
+    "knowsLanguage": "it"
+  }
+  </script>
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#contenuto">Vai al contenuto</a>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="/" aria-label="El.An. Costruzioni Residenziali, torna alla home">
+      <img src="img/elan-logo-orizzontale.svg" alt="El.An." width="170" height="35">
+    </a>
+    <nav class="main-nav" aria-label="Principale">
+      <ul>
+        <li><a href="#progetti">Progetti</a></li>
+        <li><a href="#approccio">Il nostro approccio</a></li>
+        <li><a href="#storia">La nostra storia</a></li>
+        <li><a href="#realizzazioni">Realizzazioni</a></li>
+        <li><a href="#contatti">Contatti</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-gold btn-sm header-cta" href="#contatti">Richiedi informazioni</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav"><span class="sr">Apri il menu</span><i></i><i></i></button>
+  </header>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="#progetti">Progetti</a><a href="#approccio">Il nostro approccio</a><a href="#storia">La nostra storia</a><a href="#realizzazioni">Realizzazioni</a><a href="#contatti">Contatti</a>
+    <a class="btn btn-gold" href="#contatti">Richiedi informazioni</a>
+  </div>
+
+  <main id="contenuto">
+    <!-- ================= ESPERIENZA DI COSTRUZIONE ================= -->
+    <section class="experience" id="esperienza" aria-label="Come nasce una casa El.An.">
+      <div class="stage" id="stage">
+        <picture class="poster" id="poster">
+          <source media="(max-width: 760px)" srcset="frames/f12-m.webp">
+          <img src="frames/f12-d.webp" alt="" width="1600" height="1000" fetchpriority="high">
+        </picture>
+        <div class="frames" id="frames" aria-hidden="true"></div>
+        <canvas id="scene" aria-hidden="true"></canvas>
+        <div class="vignette" aria-hidden="true"></div>
+
+        <div class="hud" id="hud">
+          <div class="hud-time" aria-live="off"><span class="sun" aria-hidden="true"></span><span id="hud-ora">21:30</span> · <span id="hud-momento">sera</span></div>
+          <ol class="hud-phases" id="hud-phases" aria-label="Fasi della costruzione"></ol>
+          <div class="hud-quota" aria-hidden="true"><span id="hud-quota">+15,50</span><small>quota</small></div>
+          <div class="toolbar" role="toolbar" aria-label="Strumenti della scena 3D">
+            <button type="button" class="tool" id="t-explore" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a8 8 0 1 0 8 8M20 4v5h-5"/></svg><span>Ruota</span></button>
+            <button type="button" class="tool" id="t-section" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12M12 4v16M4 14h16"/></svg><span>Spaccato</span></button>
+            <button type="button" class="tool" id="t-site" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V3M5 5h15M17 5v6M3 21h6M9 5l-4 4"/></svg><span>Cantiere</span></button>
+            <button type="button" class="tool" id="t-parts" aria-expanded="false" aria-controls="parts-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Elementi</span></button>
+          </div>
+          <div class="parts-menu" id="parts-menu" hidden></div>
+          <a class="skip-exp" href="#progetti">Salta ai progetti ↓</a>
+        </div>
+
+        <div class="explore-layer" id="explore-layer" hidden>
+          <p class="explore-hint">Trascina per ruotare · rotella o pizzico per avvicinarti · tocca un elemento · <kbd>Esc</kbd> per uscire</p>
+          <button type="button" class="btn btn-ghost btn-sm explore-exit" id="explore-exit">Torna al racconto</button>
+        </div>
+
+        <div class="loader" id="loader" hidden role="status" aria-live="polite">
+          <svg class="loader-mark" viewBox="0 0 100 60" aria-hidden="true"><path d="M4 56h92M10 56V30l14-6 12 2v30M36 56V14l22-11 18 9v44M58 3v53M76 26l14 6v24M44 26h8M44 38h8M64 22h8M64 34h8"/></svg>
+          <p><span id="loader-text">Preparo il cantiere 3D</span> <b id="loader-pct">0%</b></p>
+          <div class="loader-bar"><i id="loader-bar"></i></div>
+        </div>
+
+        <aside class="part-panel" id="part-panel" hidden aria-labelledby="part-title" tabindex="-1">
+          <button type="button" class="close" id="part-close" aria-label="Chiudi la scheda">×</button>
+          <p class="eyebrow">Stratigrafia</p>
+          <h3 id="part-title"></h3>
+          <p id="part-desc" class="part-desc"></p>
+          <div class="strata" id="part-strata"></div>
+          <p class="legend"><span class="tag cap">Capitolato</span> dato dai capitolati El.An. <span class="tag tip">Indicativo</span> valore tipico, da confermare</p>
+        </aside>
+      </div>
+
+      <!-- Apertura -->
+      <div class="hero" id="hero">
+        <div class="hero-inner">
+          <p class="eyebrow">El.An. · Costruzioni residenziali · Cilento</p>
+          <h1>Diamo nuova vita ai luoghi.<span>Costruiamo la tua prossima casa.</span></h1>
+          <p class="lead">Da oltre vent'anni nel mercato immobiliare del Cilento, trasformiamo edifici inutilizzati in nuove residenze pensate per il modo di vivere di oggi.</p>
+          <div class="actions">
+            <a class="btn btn-gold" href="#progetti">Scopri i progetti</a>
+            <a class="btn btn-ghost" href="#fase-00">Guarda come nasce una casa ↓</a>
+          </div>
+        </div>
+        <div class="rewind" id="rewind" aria-hidden="true"><span>Riavvolgiamo il tempo</span><b id="rewind-n">11</b></div>
+        <div class="scroll-cue" aria-hidden="true"><i></i>Scorri</div>
+      </div>
+
+      <!-- Capitoli: generati da src/data/content.js al momento della build -->
+      <div class="chapters" id="chapters">
+        <!--FASI-->
+      </div>
+    </section>
+
+    <!-- ================= PROGETTI ================= -->
+    <section class="light section" id="progetti" aria-labelledby="progetti-t">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Progetti · Agropoli</p>
+          <h2 id="progetti-t">Tre nuove residenze nel Cilento.</h2>
+          <p class="lead">Ogni progetto nasce da un edificio esistente, demolito e ricostruito secondo le norme di oggi.</p>
+        </div>
+        <div class="projects">
+          <article class="project">
+            <a class="project-img" href="#contatti" tabindex="-1" aria-hidden="true">
+              <img src="img/progetti/via-giordano/02-640.webp" srcset="img/progetti/via-giordano/02-640.webp 640w, img/progetti/via-giordano/02-1280.webp 1280w" sizes="(max-width: 760px) 100vw, 33vw" alt="Render della palazzina di Via Calcedonio Giordano" width="640" height="360" loading="lazy">
+              <span class="badge">Render</span>
+            </a>
+            <div class="project-body">
+              <p class="meta"><span>Appartamenti</span><span class="status">Stato lavori da confermare</span></p>
+              <h3>Via Calcedonio Giordano</h3>
+              <p class="where">Agropoli (SA)</p>
+              <p>Box auto raggiungibili anche in ascensore e spazi esterni privati per gli appartamenti al piano terra.</p>
+              <ul class="specs"><li>Box auto</li><li>Ascensore</li><li>FV 10 kW</li></ul>
+              <a class="link-arrow" href="#contatti">Scopri il progetto</a>
+            </div>
+          </article>
+          <article class="project">
+            <a class="project-img" href="#contatti" tabindex="-1" aria-hidden="true">
+              <img src="img/progetti/via-risorgimento/03-640.webp" srcset="img/progetti/via-risorgimento/03-640.webp 640w, img/progetti/via-risorgimento/03-1280.webp 1280w" sizes="(max-width: 760px) 100vw, 33vw" alt="Render serale della palazzina di Via Risorgimento" width="640" height="427" loading="lazy">
+              <span class="badge">Render</span>
+            </a>
+            <div class="project-body">
+              <p class="meta"><span>Appartamenti</span><span class="status">Stato lavori da confermare</span></p>
+              <h3>Via Risorgimento</h3>
+              <p class="where">Agropoli (SA)</p>
+              <p>Comfort quotidiano: ascensore accessibile, pompa di calore e area parcheggio recintata acquistabile.</p>
+              <ul class="specs"><li>Ascensore</li><li>Parcheggio</li><li>FV 10 kW</li></ul>
+              <a class="link-arrow" href="#contatti">Scopri il progetto</a>
+            </div>
+          </article>
+          <article class="project">
+            <a class="project-img" href="#contatti" tabindex="-1" aria-hidden="true">
+              <img src="img/progetti/moio-alto/03-640.webp" srcset="img/progetti/moio-alto/03-640.webp 640w, img/progetti/moio-alto/03-1280.webp 1280w" sizes="(max-width: 760px) 100vw, 33vw" alt="Fotoinserimento delle Villette Moio Alto con piscina" width="640" height="427" loading="lazy">
+              <span class="badge">Fotoinserimento</span>
+            </a>
+            <div class="project-body">
+              <p class="meta"><span>Villette</span><span class="status">Stato lavori da confermare</span></p>
+              <h3>Villette Moio Alto</h3>
+              <p class="where">Via Lavecchia, contrada Moio Alto · Agropoli (SA)</p>
+              <p>Spazio esterno privato e, su richiesta, piscina interrata 5 × 5 m. Climatizzazione su due livelli.</p>
+              <ul class="specs"><li>Giardino</li><li>Piscina su richiesta</li><li>2 livelli</li></ul>
+              <a class="link-arrow" href="#contatti">Scopri il progetto</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= APPROCCIO ================= -->
+    <section class="light alt section" id="approccio" aria-labelledby="approccio-t">
+      <div class="container two-col">
+        <div>
+          <p class="eyebrow">Il nostro modo di costruire</p>
+          <h2 id="approccio-t">Dove oggi vedi un edificio inutilizzato, noi vediamo una nuova possibilità.</h2>
+          <ol class="steps">
+            <li><b>Individuare il potenziale</b><span>Conosciamo il territorio: valutiamo posizione, contesto e cosa può diventare un immobile.</span></li>
+            <li><b>Progettare la trasformazione</b><span>Demolizione e ricostruzione con struttura antisismica e un progetto pensato per chi ci vivrà.</span></li>
+            <li><b>Realizzare nuove residenze</b><span>Seguiamo il cantiere fino alle chiavi, con capitolati chiari e un referente riconoscibile.</span></li>
+          </ol>
+        </div>
+        <figure class="ba" id="ba">
+          <div class="ba-frame">
+            <img class="ba-after" src="frames/f12-d.webp" alt="Dopo: la nuova palazzina completata, di sera" width="1600" height="1000" loading="lazy">
+            <div class="ba-before" id="ba-before"><img src="frames/f00-d.webp" alt="Prima: la vecchia palazzina da demolire" width="1600" height="1000" loading="lazy"></div>
+            <span class="ba-label l">Prima</span><span class="ba-label r">Dopo</span>
+            <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Confronta prima e dopo">
+            <span class="ba-handle" id="ba-handle" aria-hidden="true"></span>
+          </div>
+          <figcaption><span class="tag tip">Esempio</span> Illustrazione del metodo realizzata con la scena 3D. Da sostituire con foto reali prima/dopo di un intervento concluso, con luogo e date.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= BENEFICI ================= -->
+    <section class="light section" aria-labelledby="abitare-t">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Abitare il nuovo</p>
+          <h2 id="abitare-t">Cosa cambia, ogni giorno, in una casa costruita da zero.</h2>
+        </div>
+        <div class="benefits">
+          <div class="benefit"><span class="b-num">10<small>cm</small></span><h3>Comfort tutto l'anno</h3><p>Cappotto termico da 10 cm e termolaterizio da 30 cm limitano le dispersioni. La pompa di calore scalda e raffresca.</p></div>
+          <div class="benefit"><span class="b-num">6<small>cm</small></span><h3>Silenzio tra vicini</h3><p>Tra un alloggio e l'altro, doppia parete con 6 cm di lana di roccia.</p></div>
+          <div class="benefit"><span class="b-num">NTC<small>2018</small></span><h3>Struttura antisismica</h3><p>Una struttura nuova in cemento armato, progettata secondo le norme tecniche in vigore.</p></div>
+          <div class="benefit"><span class="b-num">4<small>scelte</small></span><h3>Finiture su misura</h3><p>Porte interne, rivestimenti, sanitari e rubinetteria a scelta, entro i limiti del capitolato.</p></div>
+        </div>
+        <p class="fineprint">Dotazioni tratte dai capitolati di vendita. Possono variare per progetto: fa fede il capitolato contrattuale.</p>
+      </div>
+    </section>
+
+    <!-- ================= STORIA ================= -->
+    <section class="dark section" id="storia" aria-labelledby="storia-t">
+      <div class="container two-col">
+        <div class="portrait placeholder" role="img" aria-label="Spazio per la foto della famiglia El.An.">
+          <span class="tag tip">Esempio</span>
+          <p>Foto autentica della famiglia e dei responsabili, con nomi e ruoli</p>
+        </div>
+        <div>
+          <p class="eyebrow">La nostra storia</p>
+          <h2 id="storia-t">Siamo partiti da zero. Abbiamo costruito la nostra storia qui.</h2>
+          <p class="lead">La nostra storia è iniziata da zero, nel Cilento. È cresciuta attraverso il lavoro, le scelte e i progetti che, anno dopo anno, hanno dato forma alla nostra impresa.</p>
+          <ol class="timeline" aria-label="Tappe principali (esempio)">
+            <li><b>Anno da confermare</b><span>Gli inizi della famiglia nel mercato immobiliare</span></li>
+            <li><b>Anno da confermare</b><span>Primi interventi residenziali nel Cilento</span></li>
+            <li><b>Anno da confermare</b><span>Nasce El.An. S.r.l.</span></li>
+            <li><b>Oggi</b><span>Tre nuovi progetti ad Agropoli</span></li>
+          </ol>
+          <p class="note"><span class="tag tip">Esempio</span> Tappe da completare con date e foto d'archivio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REALIZZAZIONI ================= -->
+    <section class="dark section tight" id="realizzazioni" aria-labelledby="real-t">
+      <div class="container">
+        <div class="section-head row">
+          <div><p class="eyebrow">Realizzazioni</p><h2 id="real-t">Le case che abbiamo già consegnato.</h2></div>
+          <p class="note"><span class="tag tip">In arrivo</span> Galleria con filtri e confronto prima/dopo, appena riceviamo le foto degli interventi conclusi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTATTO ================= -->
+    <section class="cta section" id="contatti" aria-labelledby="cta-t">
+      <div class="container cta-inner">
+        <p class="eyebrow">Parliamone</p>
+        <h2 id="cta-t">La tua prossima casa nel Cilento comincia da una conversazione.</h2>
+        <p class="lead">Raccontaci cosa cerchi. Ti aiutiamo a conoscere i progetti e le soluzioni disponibili.</p>
+        <div class="actions">
+          <a class="btn btn-gold" href="#contatti">Richiedi informazioni</a>
+          <span class="contact-ph">Telefono e email: <span class="tag tip">da fornire</span></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot">
+      <img src="img/elan-logo.svg" alt="El.An. Costruzioni Residenziali" width="120" height="110" loading="lazy">
+      <p>El.An. S.r.l. · Agropoli (SA)<br>P.IVA <span class="tag tip">da inserire</span></p>
+      <p class="small">Render e fotoinserimenti hanno valore illustrativo. Prototipo · contenuti in revisione.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

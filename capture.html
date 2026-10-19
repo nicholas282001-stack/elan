@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><title>Cattura fotogrammi</title>
+<style>html,body{margin:0;background:#121311}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+  // Pagina di servizio (non pubblicata): genera le immagini della versione leggera.
+  import '@fontsource-variable/archivo/wdth.css';
+  import '@fontsource/ibm-plex-mono/latin-500.css';
+  import { createExperience } from '/src/three/scene.js';
+  const c = document.getElementById('c');
+  c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px';
+  await document.fonts.ready;
+  const q = new URLSearchParams(location.search);
+  const exp = await createExperience({ canvas: c, quality: { high: true, bloom: true, shadow: 2048, maxDpr: 1, reduced: true, capture: true } });
+  window.snap = (t, w, h, layout) => exp.snapshot(t, w, h, layout);
+  window.ready = true;
+</script></body></html>
