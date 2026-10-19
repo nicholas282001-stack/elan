@@ -85,12 +85,12 @@ abbr.cap { font: 500 10px var(--mono); color: var(--gold-hi); text-decoration: n
 .poster img, .frames img { object-fit: cover; }
 .stage canvas { opacity: 0; transition: opacity 1.2s ease; display: block; touch-action: pan-y; }
 .stage.ready canvas { opacity: 1; }
-.stage.ready .poster { opacity: 0; transition: opacity 1.2s ease 0.2s; }
+.stage.ready .poster, .stage.ready .frames { opacity: 0; transition: opacity 1.2s ease 0.2s; }
 .frames img { opacity: 0; transition: opacity 0.6s ease; transform: scale(1.04); }
 .frames img.on { opacity: 1; animation: kb 14s ease-out both; }
 @keyframes kb { from { transform: scale(1.08); } to { transform: scale(1.0); } }
 .vignette { position: absolute; inset: 0; pointer-events: none; background:
-  linear-gradient(90deg, rgba(18, 19, 17, 0.78) 0%, rgba(18, 19, 17, 0.35) 34%, rgba(18, 19, 17, 0) 58%),
+  linear-gradient(90deg, rgba(18, 19, 17, 0.85) 0%, rgba(18, 19, 17, 0.5) 36%, rgba(18, 19, 17, 0) 60%),
   linear-gradient(0deg, rgba(18, 19, 17, 0.6) 0%, rgba(18, 19, 17, 0) 22%),
   linear-gradient(180deg, rgba(18, 19, 17, 0.55) 0%, rgba(18, 19, 17, 0) 16%); }
 @media (max-width: 760px) { .vignette { background: linear-gradient(0deg, rgba(18, 19, 17, 0.92) 0%, rgba(18, 19, 17, 0.5) 42%, rgba(18, 19, 17, 0) 62%), linear-gradient(180deg, rgba(18, 19, 17, 0.6) 0%, rgba(18, 19, 17, 0) 18%); } }
@@ -169,9 +169,10 @@ abbr.cap { font: 500 10px var(--mono); color: var(--gold-hi); text-decoration: n
 /* apertura */
 .hero { position: relative; z-index: 2; height: 175vh; margin-top: -100vh; margin-top: -100lvh; pointer-events: none; }
 .hero-inner { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 22px; padding: calc(var(--hdr) + 40px) var(--gutR) clamp(90px, 13vh, 140px) var(--gut); max-width: calc(var(--maxw) + 40px); pointer-events: auto; }
-.hero h1 { font: 800 clamp(40px, 6.4vw, 96px)/0.95 var(--display); font-stretch: 118%; letter-spacing: -0.01em; text-transform: uppercase; max-width: 15ch; }
+.hero h1 { font: 800 clamp(38px, 5vw, 78px)/0.95 var(--display); font-stretch: 118%; letter-spacing: -0.01em; text-transform: uppercase; max-width: 15ch; }
 .hero h1 span { display: block; color: var(--gold); font-size: 0.5em; line-height: 1.05; margin-top: 0.35em; font-stretch: 112%; letter-spacing: 0; max-width: 24ch; }
 .hero .lead { max-width: 52ch; }
+.hero-inner > :not(.actions) { text-shadow: 0 2px 22px rgba(10, 11, 9, 0.75); }
 .rewind { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; opacity: 0; z-index: 3; }
 .rewind span { display: block; font: 500 12px var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--ash); }
 .rewind b { display: block; font: 800 clamp(90px, 16vw, 220px)/1 var(--display); font-stretch: 125%; color: transparent; -webkit-text-stroke: 1.5px var(--gold); }

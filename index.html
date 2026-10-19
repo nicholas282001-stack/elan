@@ -12,7 +12,9 @@
   <meta property="og:locale" content="it_IT">
   <meta property="og:title" content="El.An. · Diamo nuova vita ai luoghi">
   <meta property="og:description" content="Nuove residenze nel Cilento, costruite da chi lavora qui da oltre vent'anni.">
-  <meta property="og:image" content="frames/f12-d.webp">
+  <meta property="og:image" content="https://elan-sito.onrender.com/frames/f12-d.webp">
+  <meta property="og:url" content="https://elan-sito.onrender.com/">
+  <link rel="canonical" href="https://elan-sito.onrender.com/">
   <link rel="preload" as="image" href="frames/f12-d.webp" media="(min-width: 761px)" fetchpriority="high">
   <link rel="preload" as="image" href="frames/f12-m.webp" media="(max-width: 760px)" fetchpriority="high">
   <script type="application/ld+json">
@@ -22,8 +24,9 @@
     "name": "El.An. S.r.l.",
     "alternateName": "El.An. Costruzioni Residenziali",
     "description": "Sviluppo residenziale nel Cilento: demolizione e ricostruzione di edifici inutilizzati per realizzare nuove abitazioni.",
-    "logo": "img/elan-logo.svg",
-    "image": "frames/f12-d.webp",
+    "url": "https://elan-sito.onrender.com/",
+    "logo": "https://elan-sito.onrender.com/img/elan-logo.svg",
+    "image": "https://elan-sito.onrender.com/frames/f12-d.webp",
     "address": { "@type": "PostalAddress", "addressLocality": "Agropoli", "addressRegion": "SA", "addressCountry": "IT" },
     "areaServed": { "@type": "Place", "name": "Cilento" },
     "knowsLanguage": "it"
@@ -72,10 +75,10 @@
           <ol class="hud-phases" id="hud-phases" aria-label="Fasi della costruzione"></ol>
           <div class="hud-quota" aria-hidden="true"><span id="hud-quota">+15,50</span><small>quota</small></div>
           <div class="toolbar" role="toolbar" aria-label="Strumenti della scena 3D">
-            <button type="button" class="tool" id="t-explore" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a8 8 0 1 0 8 8M20 4v5h-5"/></svg><span>Ruota</span></button>
-            <button type="button" class="tool" id="t-section" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12M12 4v16M4 14h16"/></svg><span>Spaccato</span></button>
-            <button type="button" class="tool" id="t-site" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V3M5 5h15M17 5v6M3 21h6M9 5l-4 4"/></svg><span>Cantiere</span></button>
-            <button type="button" class="tool" id="t-parts" aria-expanded="false" aria-controls="parts-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Elementi</span></button>
+            <button type="button" class="tool" id="t-explore" aria-label="Ruota la scena" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a8 8 0 1 0 8 8M20 4v5h-5"/></svg><span>Ruota</span></button>
+            <button type="button" class="tool" id="t-section" aria-label="Mostra lo spaccato" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12M12 4v16M4 14h16"/></svg><span>Spaccato</span></button>
+            <button type="button" class="tool" id="t-site" aria-label="Mostra il cantiere" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V3M5 5h15M17 5v6M3 21h6M9 5l-4 4"/></svg><span>Cantiere</span></button>
+            <button type="button" class="tool" id="t-parts" aria-label="Elenco degli elementi" aria-expanded="false" aria-controls="parts-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Elementi</span></button>
           </div>
           <div class="parts-menu" id="parts-menu" hidden></div>
           <a class="skip-exp" href="#progetti">Salta ai progetti ↓</a>

@@ -19,11 +19,20 @@ const mobile = mq('(max-width: 760px)') || mq('(pointer: coarse)');
 function hasWebGL() {
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
 }
+// Senza scheda video (rendering software) il 3D sarebbe lento: meglio la versione leggera.
+function softwareGL() {
+  try {
+    const gl = document.createElement('canvas').getContext('webgl');
+    const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+    const r = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : '';
+    return /swiftshader|llvmpipe|software|basic render/i.test(r);
+  } catch { return false; }
+}
 const conn = navigator.connection || {};
 const lowPower = (navigator.deviceMemory && navigator.deviceMemory <= 3) || (mobile && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || conn.saveData;
 let mode = '3d';
 if (!hasWebGL()) mode = 'lite';
-else if (params.has('lite') || reduced || lowPower) mode = 'lite';
+else if (params.has('lite') || reduced || lowPower || softwareGL()) mode = 'lite';
 if (params.has('3d') && hasWebGL()) mode = '3d';
 document.documentElement.dataset.mode = mode;
 
@@ -123,33 +132,38 @@ function onScroll() {
     phaseBtns.forEach((b, k) => { b.toggleAttribute('aria-current', k === i); if (k === i) b.setAttribute('aria-current', 'step'); b.classList.toggle('done', k < i); });
   }
   const [, ora, mom] = timeAt(t); hudOra.textContent = ora; hudMomento.textContent = mom;
-  if (exp) exp.setTarget(t); else if (mode === 'lite') liteFrame(t);
+  if (exp) exp.setTarget(t); else liteFrame(t);
   // pausa del rendering quando la scena non e' visibile
   if (exp) exp.setActive(y < metrics.expEnd);
 }
 
-// ---------------- versione leggera: immagini dalla stessa scena ----------------
+// ---------------- immagini dalla stessa scena ----------------
+// Usate dalla versione leggera e, nella versione 3D, finché la scena non è pronta.
 const framesEl = $('#frames');
-let frames = [];
+const frames = [];
+const suf = mobile ? 'm' : 'd';
+for (let k = 0; k <= 12; k++) {
+  const img = new Image(); img.alt = ''; img.decoding = 'async';
+  framesEl.appendChild(img); frames.push(img);
+}
+// carica solo l'immagine che serve e le due vicine
+const need = (k) => { const f = frames[k]; if (f && !f.src) f.src = `frames/f${String(k).padStart(2, '0')}-${suf}.webp`; };
 function setupLite() {
-  const suf = mobile ? 'm' : 'd';
-  for (let k = 0; k <= 12; k++) {
-    const img = new Image(); img.alt = ''; img.decoding = 'async';
-    img.loading = k === 12 || k === 0 ? 'eager' : 'lazy';
-    img.src = `frames/f${String(k).padStart(2, '0')}-${suf}.webp`;
-    framesEl.appendChild(img); frames.push(img);
-  }
   $('#t-explore').hidden = true; $('#t-section').hidden = true; $('#t-site').hidden = true;
+  if (!hasWebGL()) return;
   const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'tool'; btn.id = 't-3d';
+  btn.setAttribute('aria-label', 'Attiva la scena 3D');
   btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><span>Attiva il 3D</span>';
-  if (hasWebGL()) { $('.toolbar').prepend(btn); btn.addEventListener('click', () => { location.search = '?3d'; }); }
+  $('.toolbar').prepend(btn);
+  btn.addEventListener('click', () => { mode = '3d'; document.documentElement.dataset.mode = '3d'; btn.remove(); ['#t-explore', '#t-section', '#t-site'].forEach((id) => { $(id).hidden = false; }); load3D(); });
 }
 let liteIdx = -1;
 function liteFrame(t) {
   const k = clamp(Math.round(t - 0.4), 0, 12);
   if (k === liteIdx) return; liteIdx = k;
+  need(k); need(k - 1); need(k + 1);
   frames.forEach((f, j) => f.classList.toggle('on', j === k));
-  $('#poster').style.opacity = '0';
+  if (k !== 12) $('#poster').style.opacity = '0';
 }
 
 // ---------------- caricamento della scena 3D ----------------
@@ -174,16 +188,12 @@ async function load3D() {
     mode = 'lite'; document.documentElement.dataset.mode = 'lite'; loader.hidden = true; setupLite(); onScroll();
   }
 }
-// Il 3D si carica dopo la pagina: al primo gesto dell'utente o quando il browser e' libero.
+// Il 3D si carica solo al primo gesto dell'utente: la pagina resta leggera e veloce.
+// Intanto il racconto usa le immagini già pronte, quindi l'effetto parte subito.
 function scheduleLoad() {
-  const go = () => { load3D(); off(); };
   const evs = ['pointerdown', 'wheel', 'touchstart', 'keydown', 'scroll'];
-  const off = () => evs.forEach((e) => window.removeEventListener(e, go));
-  evs.forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
-  if (!mobile) {
-    const idle = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
-    window.addEventListener('load', () => idle(go, { timeout: 2500 }));
-  }
+  const go = () => { evs.forEach((e) => window.removeEventListener(e, go)); load3D(); };
+  evs.forEach((e) => window.addEventListener(e, go, { passive: true }));
 }
 
 // ---------------- strumenti ----------------

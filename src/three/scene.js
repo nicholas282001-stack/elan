@@ -25,7 +25,7 @@ const CAM = [
   [24, 8, 50, 8],      // 9 facciata
   [34, 12, 36, 6.5],   // 10 finiture (spaccato)
   [28, 8, 54, 7.5],    // 11 consegna
-  [20, 7, 60, 9],      // 12 fine
+  [20, 7, 74, 10],     // 12 fine
 ];
 
 // Luce del giorno lungo la storia: alba -> giorno -> tramonto -> sera.
