@@ -16,26 +16,33 @@ const reduced = mq('(prefers-reduced-motion: reduce)');
 const mobile = mq('(max-width: 760px)') || mq('(pointer: coarse)');
 
 // ---------------- scelta della versione: 3D o leggera ----------------
-function hasWebGL() {
-  try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
-}
-// Senza scheda video (rendering software) il 3D sarebbe lento: meglio la versione leggera.
-function softwareGL() {
+// Il controllo della scheda video crea un contesto grafico: lo facciamo una sola volta
+// e solo dopo che la pagina è apparsa, per non rallentarne il caricamento.
+let gpu = null;
+function gpuInfo() {
+  if (gpu) return gpu;
+  gpu = { ok: false, software: false };
   try {
     const gl = document.createElement('canvas').getContext('webgl');
-    const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
-    const r = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : '';
-    return /swiftshader|llvmpipe|software|basic render/i.test(r);
-  } catch { return false; }
+    if (gl) {
+      gpu.ok = true;
+      const ext = gl.getExtension('WEBGL_debug_renderer_info');
+      const r = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '';
+      gpu.software = /swiftshader|llvmpipe|software|basic render/i.test(r);
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+    }
+  } catch { /* nessun WebGL */ }
+  return gpu;
 }
+const hasWebGL = () => gpuInfo().ok;
 const conn = navigator.connection || {};
 // Safari su iPhone dichiara pochi processori per privacy: non è un indice affidabile, quindi non lo usiamo.
 const lowPower = (navigator.deviceMemory && navigator.deviceMemory <= 2) || conn.saveData;
-let mode = '3d';
-if (!hasWebGL()) mode = 'lite';
-else if (params.has('lite') || reduced || lowPower || softwareGL()) mode = 'lite';
-if (params.has('3d') && hasWebGL()) mode = '3d';
+const forced3d = params.has('3d');
+let mode = !forced3d && (params.has('lite') || reduced || lowPower) ? 'lite' : '3d';
 document.documentElement.dataset.mode = mode;
+const idle = (f) => (window.requestIdleCallback ? requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 300));
+const afterLoad = (f) => { if (document.readyState === 'complete') idle(f); else window.addEventListener('load', () => idle(f), { once: true }); };
 
 const quality = {
   high: !mobile && (navigator.hardwareConcurrency || 4) >= 6,
@@ -193,11 +200,16 @@ async function load3D() {
 // così è già pronto quando inizia la demolizione. Fino ad allora si vedono le immagini.
 function scheduleLoad() {
   const evs = ['pointerdown', 'wheel', 'touchstart', 'keydown', 'scroll'];
-  const go = () => { evs.forEach((e) => window.removeEventListener(e, go)); load3D(); };
+  let done = false;
+  const go = () => {
+    if (done) return; done = true;
+    evs.forEach((e) => window.removeEventListener(e, go));
+    const g = gpuInfo();
+    if (!g.ok || (g.software && !forced3d)) { mode = 'lite'; document.documentElement.dataset.mode = 'lite'; setupLite(); return; }
+    load3D();
+  };
   evs.forEach((e) => window.addEventListener(e, go, { passive: true }));
-  const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300));
-  const start = () => idle(go, { timeout: 1500 });
-  if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
+  afterLoad(go);
 }
 
 // ---------------- strumenti ----------------
@@ -289,5 +301,5 @@ measure();
 window.addEventListener('resize', () => { measure(); exp?.resize(); onScroll(); });
 window.addEventListener('load', () => { measure(); onScroll(); });
 if (lenis) lenis.on('scroll', onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
-if (mode === 'lite') setupLite(); else scheduleLoad();
+if (mode === 'lite') afterLoad(setupLite); else scheduleLoad();
 onScroll();
